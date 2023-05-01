@@ -17,7 +17,7 @@
         error: function(r){
             console.log(r);
         }
-    })
+    });
 
     $("#websiteBtn").attr("hidden", !isMobile);
 </script>
@@ -37,7 +37,7 @@
             </div>
             <div class="row m-2">
                 <div class="col">
-                    <a href="/video-stream"><button class="btn-sm btn-primary" id="websiteBtn">Website</button></a>
+                   <button class="btn-sm btn-primary" id="websiteBtn">Website</button>
                     <input class="btn-sm btn-primary" id="submitBtn" val='Submit' type="submit"/>
                 </div>
             </div>
@@ -49,7 +49,8 @@
     </div>
 </form>
 <script>
-    $('#submitBtn').click(function(){
-        console.log()
+    $('#websiteBtn').click(function(e){
+        e.preventDefault();
+        location.href = location.href + '/video-stream';
     });
 </script>

@@ -22,13 +22,13 @@ def start_website():
 @app.route("/", methods=["POST"])
 def save_photo():
     if request.method == 'POST':
-        # check if the post request has the file part
+
         if 'file' not in request.files:
             flash('No file part')
             return redirect(request.url)
+        
         file = request.files['file']
-        # if user does not select file, browser also
-        # submit a empty part without filename
+
         if file.filename == '':
             flash('No selected file')
             return redirect(request.url)
