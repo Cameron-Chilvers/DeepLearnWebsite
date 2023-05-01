@@ -1,0 +1,30 @@
+{% include 'imports.html' %}
+
+<style>
+    #videoElement {
+        background-color: #666;
+    }
+</style>
+
+<div class="m-4">
+    <div class="container">
+        <div>
+            <video autoplay="true" id="videoElement"></video>
+        </div>
+        <button class="btn btn-primary">Go</button>
+    </div>
+</div>
+
+<script>
+    var video = document.querySelector("#videoElement");
+
+    if (navigator.mediaDevices.getUserMedia) {
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function (stream) {
+        video.srcObject = stream;
+        })
+        .catch(function (err0r) {
+        console.log("Something went wrong!");
+        });
+    }
+</script>
