@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, send_from_directory, url_for, flash, redirect
 import json
-from flask_uploads import UploadSet, IMAGES, configure_uploads
 from werkzeug.utils import secure_filename
 import os
 

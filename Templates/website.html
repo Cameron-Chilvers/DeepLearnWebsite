@@ -11,7 +11,9 @@
         <div>
             <video autoplay="true" id="videoElement"></video>
         </div>
-        <button class="btn btn-primary">Go</button>
+        <button class="btn btn-primary" id="takePicture">Go</button>
+        <img id="photo" />
+        <canvas id="canvas" hidden> </canvas>
     </div>
 </div>
 
@@ -27,4 +29,19 @@
         console.log("Something went wrong!");
         });
     }
+
+    $('#takePicture').click(function(){
+        let canvas = $('#canvas')[0];
+        let context = canvas.getContext('2d');
+        let video = $('#videoElement')[0];
+
+        canvas.width = video.offsetWidth;
+        canvas.height = video.offsetHeight;
+        context.drawImage(video, 0,0,video.offsetWidth,video.offsetHeight)
+
+        console.log(canvas)
+        const picture = canvas.toDataURL('image/png')
+        photo.setAttribute("src", picture);
+        console.log(picture)
+    });
 </script>
