@@ -41,7 +41,11 @@ def save_photo():
             return render_template(CHOICES_TEMP, filename = filename)
     return redirect('/')
         
-    
+
+@app.route("/save-photo", methods=['POST'])
+def save_photo():
+    return 'success'
+
 @app.route('/video-stream')
 def video_stream():
     return render_template(WEBSITE_TEMP)

@@ -43,5 +43,10 @@
         const picture = canvas.toDataURL('image/png')
         photo.setAttribute("src", picture);
         console.log(picture)
+
+        $.ajax({
+            url: "/save-photo",
+            methods: 
+        })
     });
 </script>
