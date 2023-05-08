@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_from_directory, url_for, flash, redirect
+from flask import Flask, render_template, request, send_from_directory, flash, redirect
 import json
 from werkzeug.utils import secure_filename
 import os
@@ -43,8 +43,21 @@ def save_photo():
         
 
 @app.route("/save-photo", methods=['POST'])
-def save_photo():
-    return 'success'
+def save_taken_photo():
+    photo_file = request.files.get('photo')
+    print(photo_file)
+    if photo_file is not None:
+        counter = 0
+        while os.path.isfile(os.path.join(os.getcwd(), 'uploads', 'photo_{}.png'.format(counter))):
+            counter += 1
+        
+        file_path = os.path.join(os.getcwd(), 'uploads', 'photo_{}.png'.format(counter))
+        relativePath = os.path.join('uploads', 'photo_{}.png'.format(counter))
+
+        photo_file.save(file_path)
+        return str(relativePath)
+    else:
+        return "No photo uploaded"
 
 @app.route('/video-stream')
 def video_stream():
