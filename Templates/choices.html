@@ -30,7 +30,7 @@
         <div class="container">
             <div class="row m-2">
                 <div class="col">
-                    <h3>Garbage Vision</h3>
+                    <a href="/" style="color: inherit;"><h3>Garbage Vision</h3></a>
                 </div>
                 <div class="col m-2">
                     <button type="button" class="btn btn-dark btn-circle btn-sm float-right" data-toggle="modal" data-target="#helpModal"><strong>?</strong></button>
@@ -60,9 +60,10 @@
                     <input class="btn btn-primary float-right" id="submitBtn" val='Submit' type="submit"/>
                 </div>
             </div>
-
             {% if filename != None %}
-                <img src="{{filename}}" style="max-width: 600; max-height: 1200;">
+                <div class="row my-2 d-flex justify-content-center">
+                    <img src="{{filename}}" style="max-width: 600; max-height: 1200;">
+                </div>
             {% endif %}
         </div>
     </div>

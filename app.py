@@ -45,7 +45,7 @@ def save_photo():
 @app.route("/save-photo", methods=['POST'])
 def save_taken_photo():
     photo_file = request.files.get('photo')
-    print(photo_file)
+
     if photo_file is not None:
         counter = 0
         while os.path.isfile(os.path.join(os.getcwd(), 'uploads', 'photo_{}.png'.format(counter))):
