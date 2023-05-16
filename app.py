@@ -2,11 +2,16 @@ from flask import Flask, render_template, request, send_from_directory, flash, r
 import json
 from werkzeug.utils import secure_filename
 import os
+from yolov5.detect import run
+import shutil
+import time
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'STINKY'
 app.config["UPLOAD_FOLDER"] = 'uploads'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+YAMLPATH = r'D:\UNi\UTS\DEEPLEARN\DeepLearnWebsite\modelYaml.yaml'
+PTPATH = r'D:\UNi\UTS\DEEPLEARN\DeepLearnWebsite\best.pt'
 
 WEBSITE_TEMP = "website.html"
 CHOICES_TEMP = "choices.html"
@@ -26,6 +31,7 @@ def save_photo():
             flash('No file part')
             return redirect(request.url)
         
+
         file = request.files['file']
 
         if file.filename == '':
@@ -34,10 +40,12 @@ def save_photo():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            filename = os.path.join(os.getcwd(), app.config['UPLOAD_FOLDER'], filename)
             
-            filename = '\\uploads\\'+ filename
+            saveDir = run(PTPATH, source=filename, data=YAMLPATH)
+            shutil.move(os.path.join(saveDir, secure_filename(file.filename)), filename)
+            filename = '\\uploads\\'+ secure_filename(file.filename)
 
-            print(filename)
             return render_template(CHOICES_TEMP, filename = filename)
     return redirect('/')
         
@@ -51,11 +59,16 @@ def save_taken_photo():
         while os.path.isfile(os.path.join(os.getcwd(), 'uploads', 'photo_{}.png'.format(counter))):
             counter += 1
         
-        file_path = os.path.join(os.getcwd(), 'uploads', 'photo_{}.png'.format(counter))
-        relativePath = os.path.join('uploads', 'photo_{}.png'.format(counter))
+        filename = 'photo_{}.png'.format(counter)
+        file_path = os.path.join(os.getcwd(), 'uploads', filename)
 
         photo_file.save(file_path)
-        return str(relativePath)
+
+        saveDir = run(PTPATH, source=file_path, data=YAMLPATH)
+        shutil.move(os.path.join(saveDir, filename), file_path)
+        filename = os.path.join('uploads', filename)
+
+        return str(filename)
     else:
         return "No photo uploaded"
 
