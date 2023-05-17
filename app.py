@@ -42,7 +42,7 @@ def save_photo():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             filename = os.path.join(os.getcwd(), app.config['UPLOAD_FOLDER'], filename)
             
-            saveDir = run(PTPATH, source=filename, data=YAMLPATH)
+            saveDir = run(PTPATH, source=filename, data=YAMLPATH, line_thickness=1)
             shutil.move(os.path.join(saveDir, secure_filename(file.filename)), filename)
             filename = '\\uploads\\'+ secure_filename(file.filename)
 
@@ -64,7 +64,7 @@ def save_taken_photo():
 
         photo_file.save(file_path)
 
-        saveDir = run(PTPATH, source=file_path, data=YAMLPATH)
+        saveDir = run(PTPATH, source=file_path, data=YAMLPATH, line_thickness=1)
         shutil.move(os.path.join(saveDir, filename), file_path)
         filename = os.path.join('uploads', filename)
 
