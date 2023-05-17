@@ -64,7 +64,7 @@ def save_taken_photo():
 
         photo_file.save(file_path)
 
-        saveDir = run(PTPATH, source=file_path, data=YAMLPATH, line_thickness=1)
+        saveDir = run(PTPATH, source=file_path, data=YAMLPATH, line_thickness=2)
         shutil.move(os.path.join(saveDir, filename), file_path)
         filename = os.path.join('uploads', filename)
 
