@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, send_from_directory, flash, r
 import json
 from werkzeug.utils import secure_filename
 import os
-from yolov5.detect import run
+from detect import run
 import shutil
 import time
 
@@ -10,8 +10,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'STINKY'
 app.config["UPLOAD_FOLDER"] = 'uploads'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
-YAMLPATH = r'D:\UNi\UTS\DEEPLEARN\DeepLearnWebsite\modelYaml.yaml'
-PTPATH = r'D:\UNi\UTS\DEEPLEARN\DeepLearnWebsite\best.pt'
+YAMLPATH = os.path.join(os.getcwd(),'modelYaml.yaml')
+PTPATH = os.path.join(os.getcwd(),'best.pt')
 
 WEBSITE_TEMP = "website.html"
 CHOICES_TEMP = "choices.html"
