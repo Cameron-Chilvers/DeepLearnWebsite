@@ -1,10 +1,13 @@
-from flask import Flask, render_template, request, send_from_directory, flash, redirect
+import subprocess
+import cv2
+from flask import Flask, Response, render_template, request, send_from_directory, flash, redirect
 import json
 from werkzeug.utils import secure_filename
 import os
-from detect import run
+from yolov5.detect import run
 import shutil
 import time
+from camera import VideoCamera
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'STINKY'
@@ -75,6 +78,17 @@ def save_taken_photo():
 @app.route('/video-stream')
 def video_stream():
     return render_template(WEBSITE_TEMP)
+
+def gen(camera):
+    while True:
+        frame = camera.get_frame()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+
+@app.route('/video_feed')
+def video_feed():
+    return Response(gen(VideoCamera()),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/print-screen', methods=['POST'])
 def print_to_screen():

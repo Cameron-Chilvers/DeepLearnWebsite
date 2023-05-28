@@ -46,7 +46,7 @@
         <div class="row m-2">
             <div class="col">
                 <div class="d-flex justify-content-center">
-                    <video autoplay="true" id="videoElement" autoplay muted playsinline></video>
+                    <!--<video autoplay="true" id="videoElement" autoplay muted playsinline></video>-->
                 </div>
                 <div class="d-flex justify-content-center my-2">  
                     <button class="btn btn-primary " id="takePicture">Take Photo</button>
@@ -56,6 +56,14 @@
 
                 <div class="d-flex justify-content-center my-2">  
                     <img id="imgShow" src="{{filename}}" style="max-width: 600; max-height: 1200;" hidden>
+                </div>
+
+            </div>
+        </div>
+        <div class="row m-2">
+            <div class="col">
+                <div class="d-flex justify-content-center my-2">  
+                    <img id="bg" src="{{ url_for('video_feed') }}">
                 </div>
 
             </div>
