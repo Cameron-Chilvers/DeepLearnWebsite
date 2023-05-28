@@ -18,6 +18,7 @@ PTPATH = os.path.join(os.getcwd(),'best.pt')
 
 WEBSITE_TEMP = "website.html"
 CHOICES_TEMP = "choices.html"
+VIDEO_TEMP = "video.html"
 
 def allowed_file(filename):     
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -75,9 +76,13 @@ def save_taken_photo():
     else:
         return "No photo uploaded"
 
+@app.route('/take-photo')
+def take_photo():
+    return render_template(WEBSITE_TEMP)
+
 @app.route('/video-stream')
 def video_stream():
-    return render_template(WEBSITE_TEMP)
+    return render_template(VIDEO_TEMP)
 
 def gen(camera):
     while True:

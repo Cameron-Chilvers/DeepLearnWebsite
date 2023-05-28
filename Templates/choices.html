@@ -56,7 +56,9 @@
             </div>
             <div class="row mx-2">
                 <div class="col">
-                   <button class="btn btn-primary" id="websiteBtn">Take Photo</button>
+                   <button class="btn btn-primary" id="photoBtn">Take Photo</button>
+                   <button class="btn btn-primary" id="videoBtn">Use Webcam</button>
+
                     <input class="btn btn-primary float-right" id="submitBtn" val='Submit' type="submit"/>
                 </div>
             </div>
@@ -69,7 +71,12 @@
     </div>
 </form>
 <script>
-    $('#websiteBtn').click(function(e){
+    $('#photoBtn').click(function(e){
+        e.preventDefault();
+        location.href = location.href + '/take-photo';
+    });
+
+    $('#videoBtn').click(function(e){
         e.preventDefault();
         location.href = location.href + '/video-stream';
     });
