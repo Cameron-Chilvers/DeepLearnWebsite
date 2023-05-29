@@ -3,7 +3,7 @@ import numpy as np
 import torch
 from yolov5.detect import run
                 
-model = torch.hub.load('yolov5','custom', path='best.pt', force_reload=True, source='local')
+model = torch.hub.load('yolov5','custom', path='model.pt', force_reload=True, source='local')
 
 class VideoCamera(object):
     def __init__(self):

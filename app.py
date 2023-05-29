@@ -12,12 +12,13 @@ from camera import VideoCamera
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'STINKY'
 app.config["UPLOAD_FOLDER"] = 'uploads'
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 YAMLPATH = os.path.join(os.getcwd(),'modelYaml.yaml')
-PTPATH = os.path.join(os.getcwd(),'best.pt')
+PTPATH = os.path.join(os.getcwd(),'model.pt')
 
-WEBSITE_TEMP = "website.html"
-CHOICES_TEMP = "choices.html"
+HOME_TEMP = "home.html"
+PHOTO_TEMP = "photo.html"
+UPLOAD_TEMP = "upload.html"
 VIDEO_TEMP = "video.html"
 
 def allowed_file(filename):     
@@ -25,17 +26,20 @@ def allowed_file(filename):
 
 @app.route("/")
 def start_website():
-    return render_template(CHOICES_TEMP, filename = None)
+    return render_template(HOME_TEMP)
 
-@app.route("/", methods=["POST"])
-def save_photo():
+@app.route("/upload-photo")
+def upload_photo():
+    return render_template(UPLOAD_TEMP, filename = None)
+
+@app.route("/upload-photo", methods=["POST"])
+def save_uploaded_photo():
     if request.method == 'POST':
 
         if 'file' not in request.files:
             flash('No file part')
             return redirect(request.url)
         
-
         file = request.files['file']
 
         if file.filename == '':
@@ -50,8 +54,8 @@ def save_photo():
             shutil.move(os.path.join(saveDir, secure_filename(file.filename)), filename)
             filename = '\\uploads\\'+ secure_filename(file.filename)
 
-            return render_template(CHOICES_TEMP, filename = filename)
-    return redirect('/')
+            return render_template(UPLOAD_TEMP, filename = filename)
+    return redirect('/upload-photo')
         
 
 @app.route("/save-photo", methods=['POST'])
@@ -78,7 +82,7 @@ def save_taken_photo():
 
 @app.route('/take-photo')
 def take_photo():
-    return render_template(WEBSITE_TEMP)
+    return render_template(PHOTO_TEMP)
 
 @app.route('/video-stream')
 def video_stream():
